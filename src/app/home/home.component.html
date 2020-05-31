@@ -1,0 +1,36 @@
+﻿<!-- <div class="card mt-4">
+    <h4 class="card-header">Home</h4>
+    <div class="card-body">
+        <p>You're logged in with Proposal Management/p>
+        <p>Your role is: <strong>{{currentUser.role}}</strong>.</p>
+        <p>This page can be accessed by <u>all authenticated users</u>.</p>
+        <p class="mb-1">Current user from secure api end point:</p>
+        <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+        <ul *ngIf="userFromApi">
+            <li>{{userFromApi.firstName}} {{userFromApi.lastName}}</li>
+        </ul>
+    </div>
+</div> -->
+
+<!-- <div class="card mt-4">
+<h4 class="card-header">Home</h4>
+<div class="card-body">
+    <ag-grid-angular style=" height: 500px;" 
+        class="ag-theme-baltham" 
+        [columnDefs]="columnDefs" 
+        [enableSorting]="true" 
+        [enableFilter]="true"
+        [pagination]="true"
+        (gridReady)="onGridReady($event)">
+
+    </ag-grid-angular>
+</div>
+</div> -->
+
+<ag-grid-angular
+    style="width: 500px; height: 500px;"
+    class="ag-theme-alpine"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    >
+</ag-grid-angular>
