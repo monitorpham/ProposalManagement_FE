@@ -14,6 +14,7 @@ import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { HomeComponent } from './home';
 import { AdminComponent } from './admin';
 import { LoginComponent } from './login';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     imports: [
@@ -21,7 +22,8 @@ import { LoginComponent } from './login';
         ReactiveFormsModule,
         HttpClientModule,
         appRoutingModule,
-        AgGridModule.withComponents([])
+        AgGridModule.withComponents([]),
+        NgbModule
     ],
     declarations: [
         AppComponent,
