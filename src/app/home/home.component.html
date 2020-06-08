@@ -1,36 +1,44 @@
-﻿<!-- <div class="card mt-4">
-    <h4 class="card-header">Home</h4>
-    <div class="card-body">
-        <p>You're logged in with Proposal Management/p>
-        <p>Your role is: <strong>{{currentUser.role}}</strong>.</p>
-        <p>This page can be accessed by <u>all authenticated users</u>.</p>
-        <p class="mb-1">Current user from secure api end point:</p>
-        <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
-        <ul *ngIf="userFromApi">
-            <li>{{userFromApi.firstName}} {{userFromApi.lastName}}</li>
-        </ul>
+﻿<div class="contains">
+    <div class="row control-block">
+        <span>
+            All Proposals
+        </span>
+
+        <button class="btn btn-outline-primary btn-sm" (click)="OpenCreateProposalModal()">Create</button>
     </div>
-</div> -->
-
-<!-- <div class="card mt-4">
-<h4 class="card-header">Home</h4>
-<div class="card-body">
-    <ag-grid-angular style=" height: 500px;" 
-        class="ag-theme-baltham" 
-        [columnDefs]="columnDefs" 
-        [enableSorting]="true" 
-        [enableFilter]="true"
-        [pagination]="true"
-        (gridReady)="onGridReady($event)">
-
-    </ag-grid-angular>
+    <div class="row content-block">
+        <table datatable class="row-border hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Registerd By</th>
+                    <th>Content</th>
+                    <th>Group</th>
+                    <th>Team</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Current Stage</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let proposal of proposals, index as i">
+                    <td>{{i}}</td>
+                    <td>{{proposal.registerBy}}</td>
+                    <td>{{proposal.contentProposal}}</td>
+                    <td>{{proposal.hospitalDepartment}}</td>
+                    <td>{{proposal.Group}}</td>
+                    <td>{{proposal.startDate}}</td>
+                    <td>{{proposal.endDate}}</td>
+                    <td>{{proposal.currentProgressName}}</td>
+                    <td>
+                        <div class="table-actions">
+                            <button class="btn btn-outline-primary btn-sm" (click)="OpenUpdateProgressModal()">Update</button>
+                            <button class="btn btn-outline-danger btn-sm" >Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-</div> -->
-
-<ag-grid-angular
-    style="width: 500px; height: 500px;"
-    class="ag-theme-alpine"
-    [rowData]="rowData"
-    [columnDefs]="columnDefs"
-    >
-</ag-grid-angular>

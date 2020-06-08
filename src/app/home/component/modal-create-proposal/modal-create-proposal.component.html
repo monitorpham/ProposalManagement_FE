@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">Create Proposal</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="onCancel()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <div class="row modal-wrapper">
+          <label>Content</label>
+          <textarea class="form-control"></textarea>
+      </div>
+    
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary btn-sm" (click)="onSave()">Save</button>
+    <button type="button" class="btn btn-outline-danger btn-sm" (click)="onCancel()">Cancel</button>
+  </div>
