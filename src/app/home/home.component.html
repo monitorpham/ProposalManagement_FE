@@ -22,6 +22,22 @@
                 </tr>
             </thead>
             <tbody>
+                <tr >
+                    <td>1</td>
+                    <td>ai đó</td>
+                    <td>request gì đó</td>
+                    <td>khoa</td>
+                    <td>tổ</td>
+                    <td>ngày bắt đầu</td>
+                    <td>ngày kết thúc</td>
+                    <td>Khảo sát yêu cầu</td>
+                    <td>
+                        <div class="table-actions">
+                            <button class="btn btn-outline-primary btn-sm" (click)="OpenUpdateProgressModal()">Update</button>
+                            <button class="btn btn-outline-danger btn-sm" >Delete</button>
+                        </div>
+                    </td>
+                </tr>
                 <tr *ngFor="let proposal of proposals, index as i">
                     <td>{{i}}</td>
                     <td>{{proposal.registerBy}}</td>

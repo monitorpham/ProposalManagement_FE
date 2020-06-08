@@ -5,6 +5,7 @@
     </button>
 </div>
 <div class="modal-body">
+    <div class="timeline-wrapper">
     <mgl-timeline [toggle]="toggle" [alternate]="alternate">
         <mgl-timeline-entry *ngFor="let entry of entries; let i = index;" (expand)="onExpandEntry($event, i)">
             <mgl-timeline-entry-header (click)="onHeaderClick($event)">
@@ -13,9 +14,9 @@
             <mgl-timeline-entry-content [expandAnimationTiming]="contentAnimation ? '200ms ease' : '0ms'"
                 [collapseAnimationTiming]="contentAnimation ? '100ms ease' : '0ms'">
                 <div>
-                    <span>Date: {{entry.date}}</span>
-                    <span>PerformBy: {{entry.performBy}}</span>
-                    
+                    <span>Date: {{entry.date}}</span> <br>
+                    <span>PerformBy: {{entry.performBy}}</span> <br>
+                    <button class="btn btn-primary">Complete</button> 
                 </div>
             </mgl-timeline-entry-content>
             <mgl-timeline-entry-dot [class]="color ? 'primary' : 'accent'" [size]="size" (click)="onDotClick($event)"
@@ -24,6 +25,7 @@
             <mgl-timeline-entry-side>{{entry.date}}</mgl-timeline-entry-side>
         </mgl-timeline-entry>
     </mgl-timeline>
+</div>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-outline-primary btn-sm" (click)="onSave()">Save</button>
