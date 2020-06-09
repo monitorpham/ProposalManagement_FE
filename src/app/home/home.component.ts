@@ -1,60 +1,72 @@
-﻿import { Component } from '@angular/core';
-
-import { User } from '../_models';
-import { UserService, AuthenticationService } from '../_services';
+import { Component, OnInit } from '@angular/core';
 import { Proposal } from '../_models/proposal';
+import { AccountService } from '../_services/account.service';
+import { ProposalService } from '../_services/proposal.service';
+// import { UserService, AuthenticationService } from '../_services';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ModalCreateProposalComponent } from './component/modal-create-proposal/modal-create-proposal.component';
 import { ModalUpdateProgressComponent } from './component/modal-update-progress/modal-update-progress.component';
-import { ProposalService } from '../_services/proposal.service';
+import { Subject } from 'rxjs';
 
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss']
+})
+export class HomeComponent implements OnInit {
 
+  proposals: Proposal[] = [];
+  dtOptions: DataTables.Settings = {};
+  dtTrigger = new Subject();
 
-@Component({ templateUrl: 'home.component.html', styleUrls: ['./home.component.css'] })
-export class HomeComponent {
-    proposals: Proposal[] = [];
+  constructor(
+    // private userService: UserService,
+    private accountService: AccountService,
+    private modalService: BsModalService,
+    private bsModalRef: BsModalRef,
+    private proposalService: ProposalService,
+  ) {
+  }
 
-    constructor(
-        private userService: UserService,
-        private authenticationService: AuthenticationService,
-        private modalService: BsModalService,
-        private bsModalRef: BsModalRef,
-        private proposalService: ProposalService,
-    ) {
-    }
+  ngOnInit() {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 2
+    };
+    this.loadData()
+    console.log(this.proposals)
+  }
 
-    ngOnInit() {
-        this.loadData()
-    }
+  loadData() {
+    this.proposalService.getAllProposals().subscribe(res => {
+      this.proposals = res.map(item => {
+        let proposal = new Proposal()
+        proposal.id = item.proposal.id
+        proposal.contentProposal = item.proposal.contentProposal
+        proposal.startDate = proposal.convertDate(item.proposal.startDate)
+        proposal.endDate = proposal.convertDate(item.proposal.startDate)
+        proposal.currentProgressName = item.currentProgressName
+        proposal.hospitalDepartment = item.proposal.hospitalDepartment.hospitalDepartmentName
+        proposal.registerBy = item.proposal.userExtra.user.firstName
+        proposal.Group = item.proposal.userExtra.equiqmentGroup.nameGroup
+        return proposal
+      }, err => {
+        console.log(err)
+      })
+      this.dtTrigger.next();
+    })
+  }
 
-    loadData() {
-        this.proposalService.getAllProposals().subscribe(res =>{
-            this.proposals = res.map(item =>{
-                let proposal = new Proposal()
-                proposal.id = item.id
-                proposal.contentProposal = item.contentProposal
-                proposal.startDate = item.startDate
-                proposal.endDate = item.endDate
-                proposal.currentProgressName = item.currentProgressName
-                proposal.hospitalDepartment = item.hospitalDepartment.hospitalDepartmentName
-                proposal.registerBy = item.userExtra.User.firstName
-                proposal.Group = item.equiqmentGroup.nameGroup
-            }, err =>{
-                console.log(err)
-            })
-        })
-    }
+  OpenCreateProposalModal() {
+    // const initialState = {
+    //     title: 'Modal with component'
+    //   };
+    this.bsModalRef = this.modalService.show(ModalCreateProposalComponent, { class: "modal-lg" });
+  }
 
-    OpenCreateProposalModal() {
-        // const initialState = {
-        //     title: 'Modal with component'
-        //   };
-        this.bsModalRef = this.modalService.show(ModalCreateProposalComponent,{class: "modal-lg"});
-    }
-
-    OpenUpdateProgressModal() {
-        this.bsModalRef = this.modalService.show(ModalUpdateProgressComponent,{class: "modal-lg"});
-        this.bsModalRef.content.proposal = null;
-    }
+  OpenUpdateProgressModal() {
+    this.bsModalRef = this.modalService.show(ModalUpdateProgressComponent, { class: "modal-lg" });
+    this.bsModalRef.content.proposal = null;
+  }
 
 }

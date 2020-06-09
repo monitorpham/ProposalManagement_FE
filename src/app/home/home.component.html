@@ -1,4 +1,4 @@
-﻿<div class="contains">
+<div class="contains">
     <div class="row control-block">
         <span>
             All Proposals
@@ -7,7 +7,7 @@
         <button class="btn btn-outline-primary btn-sm" (click)="OpenCreateProposalModal()">Create</button>
     </div>
     <div class="row content-block">
-        <table datatable class="row-border hover">
+        <table datatable [dtOptions]="dtOptions" class="row-border hover">
             <thead>
                 <tr>
                     <th>#</th>
@@ -22,22 +22,6 @@
                 </tr>
             </thead>
             <tbody>
-                <tr >
-                    <td>1</td>
-                    <td>ai đó</td>
-                    <td>request gì đó</td>
-                    <td>khoa</td>
-                    <td>tổ</td>
-                    <td>ngày bắt đầu</td>
-                    <td>ngày kết thúc</td>
-                    <td>Khảo sát yêu cầu</td>
-                    <td>
-                        <div class="table-actions">
-                            <button class="btn btn-outline-primary btn-sm" (click)="OpenUpdateProgressModal()">Update</button>
-                            <button class="btn btn-outline-danger btn-sm" >Delete</button>
-                        </div>
-                    </td>
-                </tr>
                 <tr *ngFor="let proposal of proposals, index as i">
                     <td>{{i}}</td>
                     <td>{{proposal.registerBy}}</td>

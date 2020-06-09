@@ -1,5 +1,5 @@
 {
-  "name": "proposalmanagement",
+  "name": "pm",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -16,12 +16,13 @@
     "@angular/compiler": "~9.1.9",
     "@angular/core": "~9.1.9",
     "@angular/forms": "~9.1.9",
-    "@angular/localize": "~9.1.9",
+    "@angular/localize": "^9.1.9",
     "@angular/material": "^9.2.4",
     "@angular/platform-browser": "~9.1.9",
     "@angular/platform-browser-dynamic": "~9.1.9",
     "@angular/router": "~9.1.9",
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
+    "@ng-select/ng-select": "^4.0.0",
     "@types/datatables.net": "^1.10.19",
     "@types/jquery": "^3.3.38",
     "ag-grid-angular": "^23.1.1",

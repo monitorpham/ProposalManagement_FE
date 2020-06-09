@@ -12,7 +12,7 @@ export class ProposalService {
   ) { }
 
   getAllProposals(){
-    const url =`${environment.apiUrl}/api/proposals-data-table`
+    const url =`${environment.apiUrl}/proposals-data-table`
     return this.httpClient.get<any>(url);
   }
 }

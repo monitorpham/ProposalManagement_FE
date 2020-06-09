@@ -1,21 +1,19 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router'; // CLI imports router
-import { HomeComponent } from './home';
-import { AdminComponent } from './admin';
-import { LoginComponent } from './login';
+import { Routes, RouterModule } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+// import { UserManagementComponent } from './user-management/user-management.component';
+import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './_helpers/auth.guard';
-// canActivate: [AuthGuard]
+import { UserManagementComponent } from './user-management/user-management.component';
+
 
 const routes: Routes = [
   { path: '',   redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent , },
-  { path: 'admin', component: AdminComponent, },
+  { path: 'home', component: HomeComponent ,  canActivate: [AuthGuard]},
+  { path: 'user-management', component: UserManagementComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent},
-  
   { path: '**', redirectTo: '' }
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
