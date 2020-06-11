@@ -8,7 +8,7 @@ import { UserManagementComponent } from './user-management/user-management.compo
 
 
 const routes: Routes = [
-  { path: '',   redirectTo: '/home', pathMatch: 'full' },
+  { path: '',   redirectTo: '/home', pathMatch: 'full', canActivate: [AuthGuard]},
   { path: 'home', component: HomeComponent ,  canActivate: [AuthGuard]},
   { path: 'user-management', component: UserManagementComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent},

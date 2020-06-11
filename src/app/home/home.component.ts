@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 2
+      pageLength: 4
     };
     this.loadData()
     console.log(this.proposals)
