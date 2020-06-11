@@ -7,10 +7,10 @@
         <button class="btn btn-outline-primary btn-sm" (click)="OpenCreateProposalModal()">Create</button>
     </div>
     <div class="row content-block">
-        <table datatable [dtOptions]="dtOptions" class="row-border hover">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <!-- <th>#</th> -->
                     <th>Registerd By</th>
                     <th>Content</th>
                     <th>Group</th>
@@ -23,7 +23,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let proposal of proposals, index as i">
-                    <td>{{i}}</td>
+                    <!-- <td>{{i+1}}</td> -->
                     <td>{{proposal.registerBy}}</td>
                     <td>{{proposal.contentProposal}}</td>
                     <td>{{proposal.hospitalDepartment}}</td>
