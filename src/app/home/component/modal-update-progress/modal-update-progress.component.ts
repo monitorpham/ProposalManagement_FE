@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { MglTimelineModule } from 'angular-mgl-timeline';
+import { ModalDeleteProposalComponent } from '../modal-delete-proposal/modal-delete-proposal.component';
+import { ModalCompleteProgressComponent } from '../modal-complete-progress/modal-complete-progress.component';
 
 @Component({
   selector: 'app-modal-update-progress',
@@ -12,7 +14,7 @@ export class ModalUpdateProgressComponent implements OnInit {
 
   alternate: boolean = true;
   toggle: boolean = true;
-  color: boolean = false;
+  color: boolean = true;
   size: number = 20;
   expandEnabled: boolean = true;
   contentAnimation: boolean = true;
@@ -23,50 +25,50 @@ export class ModalUpdateProgressComponent implements OnInit {
       title: 'Khảo sát yêu cầu',
       date: '1-1-2020',
       performBy: "Nguyễn A",
-      status: true
+      note: "Hoành thfnh khảo sát yêu cầu",
     },
     {
       title: 'Đề xuất',
       date: '1-1-2020',
       performBy: "Nguyễn A",
-      status: true
+      note: "Hoành thfnh khảo sát yêu cầu",
     },
     {
       title: 'Dự toán',
       date: '1-1-2020',
       performBy: "Nguyễn A",
-      status: true
+      note: "Hoành thfnh khảo sát yêu cầu",
     },
     {
       title: 'Các quyết định',
-      date: '1-1-2020',
-      performBy: "Nguyễn A",
-      status: true
+      date: null,
+      performBy: null,
     },
     
     {
       title: 'Hợp đồng',
-      date: '1-1-2020',
-      performBy: "Nguyễn A",
-      status: true
+      date: null,
+      performBy: null,
     },
     {
       title: 'Nghiệm thu',
-      date: '1-1-2020',
-      performBy: "Nguyễn A",
-      status: true
+      date: null,
+      performBy: null,
     },
     {
       title: 'Thanh lý',
-      date: '1-1-2020',
-      performBy: "Nguyễn A",
-      status: true
+      date: null,
+      performBy: null,
     }
   ]
   constructor(
-    private bsModalRef: BsModalRef){ }
+    private bsModalRef: BsModalRef,
+    private bsModalRef2: BsModalRef,
+    private modalService: BsModalService,
+    ){ }
 
   ngOnInit(): void {
+    console.log(this.proposal)
   }
 
   onExpandEntry(expanded, index) {
@@ -95,6 +97,17 @@ export class ModalUpdateProgressComponent implements OnInit {
 
   onCancel(){
     this.bsModalRef.hide()
+  }
+
+  openCompleteProgressModal(progress){
+    this.bsModalRef2 = this.modalService.show(ModalCompleteProgressComponent)
+    this.bsModalRef2.content.progress = progress
+  }
+
+  isCurrentProgress(i){
+    if(this.entries[i].date == null && this.entries[i-1] !=null){
+      return true;
+    }
   }
 
 }

@@ -7,6 +7,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ModalCreateProposalComponent } from './component/modal-create-proposal/modal-create-proposal.component';
 import { ModalUpdateProgressComponent } from './component/modal-update-progress/modal-update-progress.component';
 import { Subject } from 'rxjs';
+import { ModalDeleteProposalComponent } from './component/modal-delete-proposal/modal-delete-proposal.component';
 
 @Component({
   selector: 'app-home',
@@ -64,9 +65,14 @@ export class HomeComponent implements OnInit {
     this.bsModalRef = this.modalService.show(ModalCreateProposalComponent, { class: "modal-lg" });
   }
 
-  OpenUpdateProgressModal() {
+  OpenUpdateProgressModal(proposal) {
     this.bsModalRef = this.modalService.show(ModalUpdateProgressComponent, { class: "modal-lg" });
-    this.bsModalRef.content.proposal = null;
+    this.bsModalRef.content.proposal = proposal;
+  }
+
+  openDeleteProposalModal(proposal){
+    this.bsModalRef = this.modalService.show(ModalDeleteProposalComponent)
+    this.bsModalRef.content.proposal = proposal
   }
 
 }
