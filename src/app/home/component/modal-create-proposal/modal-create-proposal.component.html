@@ -7,9 +7,13 @@
 <div class="modal-body">
   <div class="row modal-wrapper">
     <label>Content</label>
-    <textarea class="form-control"></textarea>
-      <label>Part</label>
-      <select class="form-control"></select>
+    <textarea class="form-control" [(ngModel)]="proposalContent"></textarea>
+    <label>Part</label>
+    <!-- <div class="form-control"> -->
+      <ng-select class="ng-slect" [items]="departments" bindLabel="hospitalDepartmentName" placeholder="Select department"
+        appendTo="body" [(ngModel)]="selectedDepartment">
+      </ng-select>
+    <!-- </div> -->
   </div>
 
 </div>

@@ -14,12 +14,14 @@
             <mgl-timeline-entry-content [expandAnimationTiming]="contentAnimation ? '200ms ease' : '0ms'"
                 [collapseAnimationTiming]="contentAnimation ? '100ms ease' : '0ms'">
                 <div>
-                    <span>Date: {{entry.date}}</span> <br>
-                    <span>PerformBy: {{entry.performBy}}</span> <br>
-                    <button class="btn btn-primary">Complete</button> 
+                    <span *ngIf="entry.date">Date: {{entry.date}} <br></span> 
+                    <span *ngIf="entry.performBy">PerformBy: {{entry.performBy}} <br></span> 
+                    <label>Note:</label>
+                    <textarea *ngIf="isCurrentProgress(i)" class="form-control" [disabled] = "entry.date !== null" [(ngModel)]="entry.note"></textarea>
+                    <button *ngIf="isCurrentProgress(i)" style="margin-top: 10px; " class="btn btn-primary" (click)="openCompleteProgressModal(entry)">Complete</button> 
                 </div>
             </mgl-timeline-entry-content>
-            <mgl-timeline-entry-dot [class]="color ? 'primary' : 'accent'" [size]="size" (click)="onDotClick($event)"
+            <mgl-timeline-entry-dot [class]="entry.date ? 'primary' : 'accent'" [size]="size" (click)="onDotClick($event)"
                 [expandAnimationTiming]="dotAnimation ? '200ms ease' : '0ms'"
                 [collapseAnimationTiming]="dotAnimation ? '100ms ease' : '0ms'"></mgl-timeline-entry-dot>
             <mgl-timeline-entry-side>{{entry.date}}</mgl-timeline-entry-side>

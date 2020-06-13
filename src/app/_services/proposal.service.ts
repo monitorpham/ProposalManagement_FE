@@ -15,4 +15,14 @@ export class ProposalService {
     const url =`${environment.apiUrl}/proposals-data-table`
     return this.httpClient.get<any>(url);
   }
+
+  createProposal(data){
+    const url =`${environment.apiUrl}/proposals`
+    return this.httpClient.post<any>(url, data);
+  }
+
+  deleteProposal(id){
+    const url =`${environment.apiUrl}/proposals/${id}`
+    return this.httpClient.delete<any>(url);
+  }
 }
