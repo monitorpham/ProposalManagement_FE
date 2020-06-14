@@ -11,8 +11,8 @@ export class ProgressService {
     private httpClient: HttpClient
   ) { }
 
-  completeProgress(id){
-    const url = `${environment.apiUrl}/progess-detaill-stage?idProgressDetail=${id}`
-    return this.httpClient.put<any>(url, null)
+  completeProgress(progess){
+    const url = `${environment.apiUrl}/progess-detaill-stage?idProgressDetail=${progess.id}`
+    return this.httpClient.put<any>(url, {note: progess.note})
   }
 }
