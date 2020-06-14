@@ -19,12 +19,13 @@ export class ModalDeleteProposalComponent implements OnInit {
   }
 
   onDelete(){
-    this.bsModalRef.hide()
+    
     this.proposalService.deleteProposal(this.proposal.id).subscribe(res =>{
       console.log(res)
     }, err =>{
       console.log(err)
     })
+    this.bsModalRef.hide()
   }
 
   onCancel(){

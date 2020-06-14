@@ -3,6 +3,9 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { MglTimelineModule } from 'angular-mgl-timeline';
 import { ModalDeleteProposalComponent } from '../modal-delete-proposal/modal-delete-proposal.component';
 import { ModalCompleteProgressComponent } from '../modal-complete-progress/modal-complete-progress.component';
+import { ProposalService } from 'src/app/_services/proposal.service';
+import { Progress } from 'src/app/_models/progress';
+import { Proposal } from 'src/app/_models/proposal';
 
 @Component({
   selector: 'app-modal-update-progress',
@@ -10,7 +13,7 @@ import { ModalCompleteProgressComponent } from '../modal-complete-progress/modal
   styleUrls: ['./modal-update-progress.component.css']
 })
 export class ModalUpdateProgressComponent implements OnInit {
-  proposal: any
+  proposal: Proposal
 
   alternate: boolean = true;
   toggle: boolean = true;
@@ -20,55 +23,29 @@ export class ModalUpdateProgressComponent implements OnInit {
   contentAnimation: boolean = true;
   dotAnimation: boolean = true;
   side = 'left';
-  entries = [
-    {
-      title: 'Khảo sát yêu cầu',
-      date: '1-1-2020',
-      performBy: "Nguyễn A",
-      note: "Hoành thfnh khảo sát yêu cầu",
-    },
-    {
-      title: 'Đề xuất',
-      date: '1-1-2020',
-      performBy: "Nguyễn A",
-      note: "Hoành thfnh khảo sát yêu cầu",
-    },
-    {
-      title: 'Dự toán',
-      date: '1-1-2020',
-      performBy: "Nguyễn A",
-      note: "Hoành thfnh khảo sát yêu cầu",
-    },
-    {
-      title: 'Các quyết định',
-      date: null,
-      performBy: null,
-    },
-    
-    {
-      title: 'Hợp đồng',
-      date: null,
-      performBy: null,
-    },
-    {
-      title: 'Nghiệm thu',
-      date: null,
-      performBy: null,
-    },
-    {
-      title: 'Thanh lý',
-      date: null,
-      performBy: null,
-    }
-  ]
+  entries : Progress[] = []
   constructor(
     private bsModalRef: BsModalRef,
     private bsModalRef2: BsModalRef,
     private modalService: BsModalService,
+    private proposalService: ProposalService
     ){ }
 
   ngOnInit(): void {
-    console.log(this.proposal)
+    // console.log("id:" + this.proposal.id)
+    this.proposalService.getProgressesByProposalId(this.proposal.id).subscribe(res => {
+      // console.log("res:" + res)
+      // debugger;
+      this.entries = res.map(item =>{
+        // console.log("item: " + item)
+        // debugger;
+        let progress = new Progress(item.id, item.time ,item.performBy, item.progress.contentTask)
+        return progress
+      })
+      console.log("entries: ")
+    console.log(this.entries)
+    })
+    
   }
 
   onExpandEntry(expanded, index) {
@@ -100,14 +77,24 @@ export class ModalUpdateProgressComponent implements OnInit {
   }
 
   openCompleteProgressModal(progress){
-    this.bsModalRef2 = this.modalService.show(ModalCompleteProgressComponent)
+    const initialState = {
+      progress: progress,
+      
+    };
+    this.bsModalRef2 = this.modalService.show(ModalCompleteProgressComponent, {initialState})
     this.bsModalRef2.content.progress = progress
   }
 
   isCurrentProgress(i){
-    if(this.entries[i].date == null && this.entries[i-1] !=null){
+    if(i==0 && this.entries[i].time == null){
       return true;
     }
+    if(i>0){
+      if(this.entries[i].time == null && this.entries[i-1].time !=null){
+        return true;
+      }
+    }
+    return false
   }
 
 }

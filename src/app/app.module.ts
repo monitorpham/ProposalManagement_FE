@@ -21,7 +21,7 @@ import { ModalUpdateProgressComponent } from './home/component/modal-update-prog
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ModalDeleteProposalComponent } from './home/component/modal-delete-proposal/modal-delete-proposal.component';
 import { ModalCompleteProgressComponent } from './home/component/modal-complete-progress/modal-complete-progress.component';
-
+import { TooltipModule } from 'ngx-bootstrap/tooltip'
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +45,8 @@ import { ModalCompleteProgressComponent } from './home/component/modal-complete-
     FormsModule,
     NgSelectModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule, 
+    TooltipModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
@@ -54,7 +55,9 @@ import { ModalCompleteProgressComponent } from './home/component/modal-complete-
   ],
   entryComponents: [
     ModalCreateProposalComponent,
-    ModalUpdateProgressComponent],
+    ModalUpdateProgressComponent,
+    ModalDeleteProposalComponent,
+    ModalCompleteProgressComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
