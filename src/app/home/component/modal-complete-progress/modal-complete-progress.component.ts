@@ -23,7 +23,7 @@ export class ModalCompleteProgressComponent implements OnInit {
   }
 
   onFinish(){
-    this.progressService.completeProgress(this.progress.id).subscribe(res =>{
+    this.progressService.completeProgress(this.progress).subscribe(res =>{
       console.log(res)
     }, err =>{
       console.log(err)
