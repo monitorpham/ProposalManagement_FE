@@ -25,4 +25,11 @@ export class ProposalService {
     const url =`${environment.apiUrl}/proposals/${id}`
     return this.httpClient.delete<any>(url);
   }
+
+  getProgressesByProposalId(id) {
+    const url = `${environment.apiUrl}/get-All-ProgressDetail-By-ProposalId?id=${id}`
+    return this.httpClient.get<any>(url)
+  }
+
+  
 }

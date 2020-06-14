@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,5 +11,8 @@ export class ProgressService {
     private httpClient: HttpClient
   ) { }
 
-  get
+  completeProgress(id){
+    const url = `${environment.apiUrl}/progess-detaill-stage?idProgressDetail=${id}`
+    return this.httpClient.put<any>(url, null)
+  }
 }

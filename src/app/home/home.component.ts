@@ -66,13 +66,22 @@ export class HomeComponent implements OnInit {
   }
 
   OpenUpdateProgressModal(proposal) {
-    this.bsModalRef = this.modalService.show(ModalUpdateProgressComponent, { class: "modal-lg" });
-    this.bsModalRef.content.proposal = proposal;
+    const initialState = {
+      proposal: proposal,
+      
+    };
+    // console.log(proposal)
+    // debugger;
+    this.bsModalRef = this.modalService.show(ModalUpdateProgressComponent, {initialState, class: "modal-lg"});
+    // this.bsModalRef.content.proposal = proposal;
   }
 
   openDeleteProposalModal(proposal){
-    this.bsModalRef = this.modalService.show(ModalDeleteProposalComponent)
-    this.bsModalRef.content.proposal = proposal
+    const initialState = {
+      proposal: proposal,
+    };
+    this.bsModalRef = this.modalService.show(ModalDeleteProposalComponent, {initialState})
+    // this.bsModalRef.content.proposal = proposal
   }
 
 }

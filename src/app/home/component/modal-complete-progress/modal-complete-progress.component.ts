@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ProposalService } from 'src/app/_services/proposal.service';
+import { ProgressService } from 'src/app/_services/progress.service';
 
 @Component({
   selector: 'app-modal-complete-progress',
@@ -12,6 +14,8 @@ export class ModalCompleteProgressComponent implements OnInit {
 
   constructor(
     private bsModalRef2: BsModalRef,
+    private propsalService: ProposalService,
+    private progressService: ProgressService
   ) { }
 
   ngOnInit(): void {
@@ -19,6 +23,11 @@ export class ModalCompleteProgressComponent implements OnInit {
   }
 
   onFinish(){
+    this.progressService.completeProgress(this.progress.id).subscribe(res =>{
+      console.log(res)
+    }, err =>{
+      console.log(err)
+    })
     this.bsModalRef2.hide()
     
   }
