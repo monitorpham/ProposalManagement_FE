@@ -22,6 +22,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ModalDeleteProposalComponent } from './home/component/modal-delete-proposal/modal-delete-proposal.component';
 import { ModalCompleteProgressComponent } from './home/component/modal-complete-progress/modal-complete-progress.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip'
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ModalViewProgressComponent } from './home/component/modal-view-progress/modal-view-progress.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +34,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip'
     ModalCreateProposalComponent,
     ModalUpdateProgressComponent,
     ModalDeleteProposalComponent,
-    ModalCompleteProgressComponent
+    ModalCompleteProgressComponent,
+    ModalViewProgressComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +43,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip'
     BrowserAnimationsModule,
     DataTablesModule,
     ModalModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     MglTimelineModule,
     NgbModule,
     FormsModule,
@@ -57,7 +61,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip'
     ModalCreateProposalComponent,
     ModalUpdateProgressComponent,
     ModalDeleteProposalComponent,
-    ModalCompleteProgressComponent],
+    ModalCompleteProgressComponent,
+    ModalViewProgressComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

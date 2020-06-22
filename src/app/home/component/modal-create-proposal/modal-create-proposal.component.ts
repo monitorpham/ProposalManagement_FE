@@ -28,7 +28,7 @@ export class ModalCreateProposalComponent implements OnInit {
         let hospitalDepartment = item as HospitalDepartment;
         return hospitalDepartment
       })
-      // console.log(this.departments)
+      console.log(this.departments)
     }, err =>{
       console.log(err)
     })

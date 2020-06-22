@@ -5,3 +5,13 @@
 .ng-slect{
     width: 100%;
 }
+
+.row-item{
+    width: 100%;
+    margin: unset;
+    padding-top: 25px;
+}
+
+.item-label{
+    color: rgb(134, 130, 130);;
+}

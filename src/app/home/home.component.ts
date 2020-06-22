@@ -8,6 +8,7 @@ import { ModalCreateProposalComponent } from './component/modal-create-proposal/
 import { ModalUpdateProgressComponent } from './component/modal-update-progress/modal-update-progress.component';
 import { Subject } from 'rxjs';
 import { ModalDeleteProposalComponent } from './component/modal-delete-proposal/modal-delete-proposal.component';
+import { ModalViewProgressComponent } from './component/modal-view-progress/modal-view-progress.component';
 
 @Component({
   selector: 'app-home',
@@ -32,7 +33,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 4
+      pageLength: 10
     };
     this.loadData()
     console.log(this.proposals)
@@ -68,12 +69,8 @@ export class HomeComponent implements OnInit {
   OpenUpdateProgressModal(proposal) {
     const initialState = {
       proposal: proposal,
-      
     };
-    // console.log(proposal)
-    // debugger;
     this.bsModalRef = this.modalService.show(ModalUpdateProgressComponent, {initialState, class: "modal-lg"});
-    // this.bsModalRef.content.proposal = proposal;
   }
 
   openDeleteProposalModal(proposal){
@@ -82,6 +79,15 @@ export class HomeComponent implements OnInit {
     };
     this.bsModalRef = this.modalService.show(ModalDeleteProposalComponent, {initialState})
     // this.bsModalRef.content.proposal = proposal
+  }
+
+
+  OpenViewProgressModal(proposal){
+    const initialState = {
+      proposal: proposal,
+    };
+    this.bsModalRef = this.modalService.show(ModalViewProgressComponent, {initialState, class: "modal-lg"});
+ 
   }
 
 }
