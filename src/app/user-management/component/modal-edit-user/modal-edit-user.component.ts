@@ -24,17 +24,20 @@ export class ModalEditUserComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.route.data.subscribe(({ user }) => {
-      console.log(user)
-      if (user) {
-        this.user = user;
-        if (this.user.id === undefined) {
-          this.user.activated = true;
-        }
-        this.updateForm(user);
-      }
-    });
+    this.updateForm(this.user)
+    // console.log(this.updateForm(this.user))
+    // this.route.data.subscribe(({ user }) => {
+    //   console.log(user)
+    //   if (user) {
+    //     this.user = user;
+    //     if (this.user.id === undefined) {
+    //       this.user.activated = true;
+    //     }
+    //     this.updateForm(user);
+    //   }
+    // });zz
     this.userService.authorities().subscribe(authorities => {
+      // console.log(authorities)
       this.authorities = authorities;
     });
   }
@@ -54,7 +57,7 @@ export class ModalEditUserComponent implements OnInit {
     lastName: ['', [Validators.maxLength(50)]],
     email: ['', [Validators.minLength(5), Validators.maxLength(254), Validators.email]],
     activated: [],
-    authorities: [],
+    authorities: ['',[Validators.required]],
   });
 
   save(): void {
@@ -67,8 +70,9 @@ export class ModalEditUserComponent implements OnInit {
   }
 
   private updateForm(user: User): void {
+    // console.log(user.firstName)
     this.editForm.patchValue({
-      // id: user.id,
+      id: user.id,
       login: user.login,
       firstName: user.firstName,
       lastName: user.lastName,

@@ -33,17 +33,17 @@
                             <span class="badge badge-info" style="font-size: 83%">{{ authorities }}</span>
                         </div>
                     </td>
-                    <td>{{user.createDate | date:'dd/MM/yy HH:mm'}}</td>
+                    <td>{{user.createdDate | date:'dd/MM/yy HH:mm'}}</td>
                     <td>{{user.lastModifiedBy}}</td>
                     <td>{{user.lastModifiedDate | date:'dd/MM/yy HH:mm'}}</td>
                     <td>
                         <div class="table-actions">
-                            <button class="btn btn-primary btn-sm" (click)="OpenEditUserModal()">Edit</button>
+                            <button class="btn btn-primary btn-sm" (click)="OpenEditUserModal(user)">Edit</button>
 
                             <button class="btn btn-danger btn-sm" (click)="setActive(user, true)"
                                 *ngIf="!user.activated">Deactivated</button>
                             <button class="btn btn-success btn-sm" (click)="setActive(user, false)"
-                                *ngIf="user.activated"
+                                *ngIf="user.activated" [disabled]="!currentAccount || currentAccount.login === user.login"
                                >Activated</button>
                         </div>
                     </td>

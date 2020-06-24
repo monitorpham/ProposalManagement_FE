@@ -1,15 +1,22 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, ReplaySubject,Observable, of } from 'rxjs';
 import { User } from '../_models/user';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
+import { shareReplay,tap, catchError } from 'rxjs/operators';
+import { Account} from '../_models/account'
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
+
+  private userIdentity: Account | null = null;
+  private accountCache$?: Observable<Account | null>;
+  // private authenticationState = new ReplaySubject<Account | null>(1);
+
   private userSubject: BehaviorSubject<User>;
   public user: Observable<User>;
 
@@ -41,5 +48,56 @@ export class AccountService {
     this.userSubject.next(null);
     this.router.navigate(['/login']);
   }
+
+  fetch(): Observable<Account> {
+    const url =`${environment.apiUrl}/account`
+    return this.http.get<Account>(url);
+  }
+
+  saveAcc(account: Account): Observable<{}> {
+    const url =`${environment.apiUrl}/account`
+    return this.http.post(url, account);
+  }
+
+
+  // authenticate(identity: Account | null): void {
+  //   this.userIdentity = identity;
+  //   this.authenticationState.next(this.userIdentity);
+  // }
+
+  // hasAnyAuthority(authorities: string[] | string): boolean {
+  //   if (!this.userIdentity || !this.userIdentity.authorities) {
+  //     return false;
+  //   }
+  //   if (!Array.isArray(authorities)) {
+  //     authorities = [authorities];
+  //   }
+  //   return this.userIdentity.authorities.some((authority: string) => authorities.includes(authority));
+  // }
+
+  identity(force?: boolean): Observable<Account | null> {
+    if (!this.accountCache$ || force || !this.isAuthenticated()) {
+      this.accountCache$ = this.fetch().pipe(
+        catchError(() => {
+          return of(null);
+        }),
+        // tap((account: Account | null) => {
+        //   this.authenticate(account);
+
+        //   if (account) {
+        //     // this.navigateToStoredUrl();
+        //   }
+        // }),
+        shareReplay()
+      );
+    }
+    return this.accountCache$;
+  }
+
+  isAuthenticated(): boolean {
+    return this.userIdentity !== null;
+  }
+
+
 
 }

@@ -5,11 +5,11 @@
     </button>
 </div>
 <div class="modal-body">
-    <div class="row modal-wrapper">
+    <div class="modal-wrapper">
         <form name="createUserForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="createUserForm">
             <div class="form-group">
                 <label class="form-control-label">Login</label>
-                <input type="text" class="form-control" name="login" formControlName="login" style="width: 100%;">
+                <input type="text" class="form-control" name="login" formControlName="login">
                 <div
                     *ngIf="createUserForm.get('login')!.invalid && (createUserForm.get('login')!.dirty || createUserForm.get('login')!.touched)">
                     <small class="form-text text-danger" *ngIf="createUserForm.get('login')?.errors?.required">
@@ -50,7 +50,13 @@
 
             <div class="form-group">
                 <label class="form-control-label">Phone</label>
-                <input type="text" class="form-control" name="lastName" formControlName="phone">
+                <input type="text" class="form-control" name="phone" formControlName="phone">
+                <div
+                    *ngIf="createUserForm.get('phone')!.invalid && (createUserForm.get('phone')!.dirty || createUserForm.get('phone')!.touched)">
+                    <small class="form-text text-danger" *ngIf="createUserForm.get('phone')?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
             </div>
 
             <div class="form-group">
@@ -81,6 +87,12 @@
                 <ng-select class="ng-slect" [items]="groups" bindLabel="nameGroup" placeholder="Select group"
                     appendTo="body" formControlName="selectedGroup">
                 </ng-select>
+                <div
+                    *ngIf="createUserForm.get('selectedGroup')!.invalid && (createUserForm.get('selectedGroup')!.dirty || createUserForm.get('selectedGroup')!.touched)">
+                    <small class="form-text text-danger" *ngIf="createUserForm.get('selectedGroup')?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
             </div>
 
             <div class="form-group">
@@ -88,17 +100,23 @@
                 <select class="form-control" multiple name="authority" formControlName="authorities">
                     <option *ngFor="let authority of authorities" [value]="authority">{{ authority }}</option>
                 </select>
+                <div
+                    *ngIf="createUserForm.get('authorities')!.invalid && (createUserForm.get('authorities')!.dirty || createUserForm.get('authorities')!.touched)">
+                    <small class="form-text text-danger" *ngIf="createUserForm.get('authorities')?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
             </div>
 
             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" (click)="onCancel()">Cancel</button>
                 <button type="submit" [disabled]="createUserForm.invalid || isSaving" class="btn btn-primary btn-sm">Save</button>
-                <button type="button" class="btn btn-danger btn-sm" (click)="onCancel()">Cancel</button>
             </div>   
 
         </form>
 
-
-    </div>
+</div>
+</div>
     
 
 

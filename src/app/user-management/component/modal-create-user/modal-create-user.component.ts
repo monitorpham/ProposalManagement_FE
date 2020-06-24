@@ -68,9 +68,9 @@ export class ModalCreateUserComponent implements OnInit {
     firstName: ['', [Validators.maxLength(50)]],
     lastName: ['', [Validators.maxLength(50)]],
     email: ['', [Validators.minLength(5), Validators.maxLength(254), Validators.email]],
-    phone: [],
-    selectedGroup: [],
-    authorities: [],
+    phone: ['',[Validators.required]],
+    selectedGroup: ['',[Validators.required]],
+    authorities: ['',[Validators.required]],
   });
 
   private onSaveSuccess(): void {

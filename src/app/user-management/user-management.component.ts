@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../_models/user';
+import { Account } from '../_models/account'
 import { AccountService } from '../_services/account.service';
 import { UserService } from '../_services/user.service';
 // import { UserService, AuthenticationService } from '../_services';
@@ -31,6 +32,11 @@ export class UserManagementComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // this.accountService.identity().subscribe(account => (this.currentAccount = account));
+    this.accountService.identity().subscribe(account => (
+      // console.log(account),
+      this.currentAccount = account));
+
     this.userExtrasService.userExtras().subscribe(groups => {
       this.groups = groups;
     }, err =>{
@@ -50,6 +56,8 @@ export class UserManagementComponent implements OnInit {
         let user = new User()
         user.id = item.id
         user.login = item.login
+        user.firstName = item.firstName
+        user.lastName = item.lastName
         user.email = item.email
         user.activated = item.activated
         user.authorities = item.authorities
@@ -64,8 +72,12 @@ export class UserManagementComponent implements OnInit {
     })
   }
 
+  loadAll() {
+    this.userService.getAllUsers().subscribe(res =>this.users )
+  }
+
   setActive(user: User, isActivated: boolean): void{
-    this.userService.update({...user, activated: isActivated });
+    this.userService.update({...user, activated: isActivated }).subscribe(() => this.loadAll());
   }
   
   // private loadAll(): void {
@@ -83,12 +95,15 @@ export class UserManagementComponent implements OnInit {
     this.bsModalRef = this.modalService.show(ModalCreateUserComponent, { class: "modal-lg" });
   }
 
-  OpenEditUserModal() {
-    this.bsModalRef = this.modalService.show(ModalEditUserComponent, { class: "modal-lg" });
-    this.bsModalRef.content.user = null;
+  OpenEditUserModal(user) {
+    const initialState = {
+      user: user,
+      
+    };
+    // console.log(user)
+    this.bsModalRef = this.modalService.show(ModalEditUserComponent, { initialState, class: "modal-lg" });
+    // this.bsModalRef.content.user = null;
   }
-
-  
 
 }
 

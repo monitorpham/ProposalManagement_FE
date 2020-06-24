@@ -5,7 +5,7 @@
     </button>
 </div>
 <div class="modal-body">
-    <div class="row modal-wrapper">
+    <div class=" modal-wrapper">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
 
             <div *ngIf="user">
@@ -105,15 +105,20 @@
                     <select class="form-control" multiple name="authority" formControlName="authorities">
                         <option *ngFor="let authority of authorities" [value]="authority">{{ authority }}</option>
                     </select>
+                    <div
+                    *ngIf="editForm.get('authorities')!.invalid && (editForm.get('authorities')!.dirty || editForm.get('authorities')!.touched)">
+                    <small class="form-text text-danger" *ngIf="editForm.get('authorities')?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
                 </div>
             </div>
 
-            <div *ngIf="user">
-                <button type="button" class="btn btn-secondary" (click)="onCancel()">
+            <div *ngIf="user" class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" (click)="onCancel()">
                    <span>Cancel</span>
                 </button>
-
-                <button type="submit" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" [disabled]="editForm.invalid || isSaving" class="btn btn-primary btn-sm">
                     <span>Save</span>
                 </button>
             </div>

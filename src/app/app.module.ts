@@ -24,7 +24,11 @@ import { ModalCompleteProgressComponent } from './home/component/modal-complete-
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 // import { ComponentComponent } from './user-management/component/component.component';
 import { ModalCreateUserComponent } from './user-management/component/modal-create-user/modal-create-user.component';
-import { ModalEditUserComponent } from './user-management/component/modal-edit-user/modal-edit-user.component'
+import { ModalEditUserComponent } from './user-management/component/modal-edit-user/modal-edit-user.component';
+import { AccountComponent } from './account/account.component';
+import { SettingsComponent } from './account/settings/settings.component';
+import { PasswordComponent } from './account/password/password.component';
+import { PasswordStrengthBarComponent } from './account/password/password-strength-bar/password-strength-bar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +42,11 @@ import { ModalEditUserComponent } from './user-management/component/modal-edit-u
     ModalCompleteProgressComponent,
     // ComponentComponent,
     ModalCreateUserComponent,
-    ModalEditUserComponent
+    ModalEditUserComponent,
+    AccountComponent,
+    SettingsComponent,
+    PasswordComponent,
+    PasswordStrengthBarComponent
   ],
   imports: [
     BrowserModule,

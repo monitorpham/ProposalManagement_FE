@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
       pageLength: 10
     };
     this.loadData()
-    console.log(this.proposals)
+    // console.log(this.proposals)
   }
 
   loadData() {

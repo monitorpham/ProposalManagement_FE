@@ -28,12 +28,6 @@ export class UserService {
     return this.httpClient.put<IUser>(url, user);
   }
 
-  getUserById(id) {
-    const url =`${environment.apiUrl}/users?id=${id}`
-    return this.httpClient.get<User>(url);
-  }
-
-
   createUser(userExtras,param) {
     const url =`${environment.apiUrl}/users`
     return this.httpClient.post<any>(url, userExtras,param);
