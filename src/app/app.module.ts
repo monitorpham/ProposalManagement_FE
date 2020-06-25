@@ -24,6 +24,7 @@ import { ModalCompleteProgressComponent } from './home/component/modal-complete-
 import { TooltipModule } from 'ngx-bootstrap/tooltip'
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ModalViewProgressComponent } from './home/component/modal-view-progress/modal-view-progress.component';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +45,7 @@ import { ModalViewProgressComponent } from './home/component/modal-view-progress
     DataTablesModule,
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
+    ToastrModule.forRoot(),
     MglTimelineModule,
     NgbModule,
     FormsModule,

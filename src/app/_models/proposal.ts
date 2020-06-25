@@ -9,6 +9,7 @@ export class Proposal {
     hospitalDepartment: String;
     currentProgressName: String;
     registerBy: String
+    note: String;
 
     public convertDate(dateString: String) {
         if (dateString) {

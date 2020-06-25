@@ -39,7 +39,7 @@ export class ModalUpdateProgressComponent implements OnInit {
       this.entries = res.map(item =>{
         // console.log("item: " + item)
         // debugger;
-        let progress = new Progress(item.id, item.time ,item.performBy, item.progress.contentTask)
+        let progress = new Progress(item.id, item.progress.contentTask, item.timeStart ,item.timeEnd, item.performBy, item.note)
         return progress
       })
       console.log("entries: ")
@@ -84,16 +84,16 @@ export class ModalUpdateProgressComponent implements OnInit {
     this.bsModalRef2.content.progress = progress
   }
 
-  isCurrentProgress(i){
-    if(i==0 && this.entries[i].time == null){
-      return true;
-    }
-    if(i>0){
-      if(this.entries[i].time == null && this.entries[i-1].time !=null){
-        return true;
-      }
-    }
-    return false
-  }
+  // isCurrentProgress(i){
+  //   if(i==0 && this.entries[i].time == null){
+  //     return true;
+  //   }
+  //   if(i>0){
+  //     if(this.entries[i].time == null && this.entries[i-1].time !=null){
+  //       return true;
+  //     }
+  //   }
+  //   return false
+  // }
 
 }
