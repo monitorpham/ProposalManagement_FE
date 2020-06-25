@@ -33,7 +33,7 @@ export class ModalViewProgressComponent implements OnInit {
   ngOnInit(): void {
     this.proposalService.getProgressesByProposalId(this.proposal.id).subscribe(res => {
       this.entries = res.map(item =>{
-        let progress = new Progress(item.id, item.time ,item.performBy, item.progress.contentTask)
+        let progress = new Progress(item.id, item.progress.contentTask, item.timeStart ,item.timeEnd, item.performBy, item.note)
         return progress
       })
       for(let i=0; i < this.entries.length; i++){
@@ -74,16 +74,16 @@ export class ModalViewProgressComponent implements OnInit {
     this.bsModalRef.hide()
   }
 
-  isCurrentProgress(i){
-    if(i==0 && this.entries[i].time == null){
-      return true;
-    }
-    if(i>0){
-      if(this.entries[i].time == null && this.entries[i-1].time !=null){
-        return true;
-      }
-    }
-    return false
-  }
+  // isCurrentProgress(i){
+  //   if(i==0 && this.entries[i].time == null){
+  //     return true;
+  //   }
+  //   if(i>0){
+  //     if(this.entries[i].time == null && this.entries[i-1].time !=null){
+  //       return true;
+  //     }
+  //   }
+  //   return false
+  // }
 
 }

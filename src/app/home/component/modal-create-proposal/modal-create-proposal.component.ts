@@ -4,6 +4,9 @@ import { HospitalDepartmentService } from 'src/app/_services/hospital-department
 import { ThrowStmt } from '@angular/compiler';
 import { HospitalDepartment } from 'src/app/_models/hospital-department';
 import { ProposalService } from 'src/app/_services/proposal.service';
+import { FormBuilder, Validators} from '@angular/forms';
+import { SCommonService } from 'src/app/_services/s-common.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-modal-create-proposal',
@@ -13,16 +16,26 @@ import { ProposalService } from 'src/app/_services/proposal.service';
 export class ModalCreateProposalComponent implements OnInit {
   departments: HospitalDepartment[] = []
   selectedDepartment: HospitalDepartment;
-  proposalContent: string = ''
-
+  startDate: string = ''
+  proposalForm: any = {
+    "contentProposal": "",
+    "hospitalDepartmentId": 0,
+    "note": "",
+    "startDate": ""
+    // 2020-06-24T16:30:34.649Z
+  }
 
   constructor(
     private bsModalRef: BsModalRef,
     private hospitalDepartmentService: HospitalDepartmentService,
-    private proposalService: ProposalService){ }
+    private proposalService: ProposalService,
+    private commonService: SCommonService,
+    private toastr : ToastrService,
+    private formBuilder: FormBuilder){ }
 
 
   ngOnInit(): void {
+
     this.hospitalDepartmentService.getAllDepartment().subscribe(res=>{
       this.departments = res.map(item =>{
         let hospitalDepartment = item as HospitalDepartment;
@@ -35,17 +48,22 @@ export class ModalCreateProposalComponent implements OnInit {
   }
 
   onSave(){
-    let formData = {
-      "contentProposal": this.proposalContent,
-      "hospitalDepartmentId": this.selectedDepartment.id,
-    }
-    this.proposalService.createProposal(formData).subscribe(res =>{
+    let dateString = this.commonService.dateStringToISOString(this.startDate)
+    let dId = this.selectedDepartment.id
+    this.proposalForm.startDate = dateString
+    this.proposalForm.hospitalDepartmentId = dId
+    console.log(this.proposalForm)
+    // debugger;
+
+    this.proposalService.createProposal(this.proposalForm).subscribe(res =>{
       console.log(res)
+      this.toastr.success("Create proposal successfully!")
     }, err=>{
       console.log(err)
+      this.toastr.error(err.message? err.message:  "Create proposal failed!")
     })
 
-    console.log(formData)
+    
     this.bsModalRef.hide()
   }
 

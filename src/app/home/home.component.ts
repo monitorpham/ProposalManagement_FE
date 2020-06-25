@@ -37,6 +37,8 @@ export class HomeComponent implements OnInit {
     };
     this.loadData()
     console.log(this.proposals)
+
+    
   }
 
   loadData() {
@@ -44,6 +46,7 @@ export class HomeComponent implements OnInit {
       this.proposals = res.map(item => {
         let proposal = new Proposal()
         proposal.id = item.proposal.id
+        proposal.note = item.proposal.note
         proposal.contentProposal = item.proposal.contentProposal
         proposal.startDate = proposal.convertDate(item.proposal.startDate)
         proposal.endDate = proposal.convertDate(item.proposal.startDate)
@@ -59,11 +62,31 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  reloadData(){
+    this.proposalService.getAllProposals().subscribe(res => {
+      this.proposals = res.map(item => {
+        let proposal = new Proposal()
+        proposal.id = item.proposal.id
+        proposal.note = item.proposal.note
+        proposal.contentProposal = item.proposal.contentProposal
+        proposal.startDate = proposal.convertDate(item.proposal.startDate)
+        proposal.endDate = proposal.convertDate(item.proposal.startDate)
+        proposal.currentProgressName = item.currentProgressName
+        proposal.hospitalDepartment = item.proposal.hospitalDepartment.hospitalDepartmentName
+        proposal.registerBy = item.proposal.userExtra.user.firstName
+        proposal.Group = item.proposal.userExtra.equiqmentGroup.nameGroup
+        return proposal
+      }, err => {
+        console.log(err)
+      })
+    })
+  }
+
   OpenCreateProposalModal() {
-    // const initialState = {
-    //     title: 'Modal with component'
-    //   };
     this.bsModalRef = this.modalService.show(ModalCreateProposalComponent, { class: "modal-lg" });
+    this.modalService.onHide.subscribe((reason: string) => {
+      this.reloadData()
+    })
   }
 
   OpenUpdateProgressModal(proposal) {
@@ -71,6 +94,9 @@ export class HomeComponent implements OnInit {
       proposal: proposal,
     };
     this.bsModalRef = this.modalService.show(ModalUpdateProgressComponent, {initialState, class: "modal-lg"});
+    this.modalService.onHide.subscribe((reason: string) => {
+      this.reloadData()
+    })
   }
 
   openDeleteProposalModal(proposal){
@@ -78,7 +104,9 @@ export class HomeComponent implements OnInit {
       proposal: proposal,
     };
     this.bsModalRef = this.modalService.show(ModalDeleteProposalComponent, {initialState})
-    // this.bsModalRef.content.proposal = proposal
+    this.modalService.onHide.subscribe((reason: string) => {
+      this.reloadData()
+    })
   }
 
 
@@ -87,7 +115,6 @@ export class HomeComponent implements OnInit {
       proposal: proposal,
     };
     this.bsModalRef = this.modalService.show(ModalViewProgressComponent, {initialState, class: "modal-lg"});
- 
   }
 
 }
