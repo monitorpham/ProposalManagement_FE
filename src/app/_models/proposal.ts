@@ -8,7 +8,8 @@ export class Proposal {
     endDate: String;
     hospitalDepartment: String;
     currentProgressName: String;
-    registerBy: String
+    registerBy: String;
+    note: String;
 
     public convertDate(dateString: String) {
         if (dateString) {

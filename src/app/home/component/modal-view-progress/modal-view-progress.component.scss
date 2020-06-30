@@ -6,6 +6,7 @@
 }
 
 .entrie-wrapper{
+    background-color: white;
     padding: 0px 20px;
     font-size: 13px;
 }
@@ -16,4 +17,8 @@
 
 .item-label{
     color: rgb(134, 130, 130);
+}
+
+.info-item{
+    display: flex;
 }

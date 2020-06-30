@@ -1,3 +1,6 @@
+.ng-invalid:not(form) {
+    border-left: 5px solid red;
+}
 .contains{
     padding: 20px;
 }
@@ -5,19 +8,20 @@
 .control-block{
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
     flex-direction: row;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 25px;
+    font-size: 30px;
     font-weight: 600;
     color: #b30000;
     margin: unset;
 }
 
 .content-block{
+    padding: 2.5% 15%;
     width: 100%;
     /* height: calc(100vh - 200px); */
-    padding: 15px 25px;
+    // padding: 15px 25px;
     border: 1px solid #C0C0C0;
     border-radius: 7px;
     background-color: #F8F8F8;
@@ -38,3 +42,14 @@
     width: 100% !important;
 
 }
+
+// .footer {
+//     display: flex;
+//     flex-wrap: wrap;
+//     align-items: center;
+//     justify-content: flex-end;
+//     padding: .75rem;
+//     /* border-top: 1px solid #dee2e6; */
+//     border-bottom-right-radius: calc(.3rem - 1px);
+//     border-bottom-left-radius: calc(.3rem - 1px);
+// }

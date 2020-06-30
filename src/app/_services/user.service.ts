@@ -19,6 +19,10 @@ export class UserService {
     return this.httpClient.get<any>(url);
   }
 
+  // query(req?: Pagination): Observable<HttpResponse<IUser[]>> {
+  //   const options = createRequestOption(req);
+  //   return this.http.get<IUser[]>(this.resourceUrl, { params: options, observe: 'response' });
+  // }
   // update(user : IUser): Observable<IUser>{
   //   const url =`${environment.apiUrl}/users`
   //   return this.httpClient.put<any>(url,user);

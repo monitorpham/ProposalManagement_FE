@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { User } from '../../../_models/user';
 import { UserService } from '../../../_services/user.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-modal-edit-user',
@@ -15,6 +16,7 @@ export class ModalEditUserComponent implements OnInit {
   user!: User;
   authorities: string[] = [];
   isSaving = false;
+  error = false;
 
   constructor(
     private userService: UserService, 
@@ -65,7 +67,8 @@ export class ModalEditUserComponent implements OnInit {
     this.updateUser(this.user);
     this.userService.update(this.user).subscribe(
       () => this.onSaveSuccess(),
-      () => this.onSaveError()
+      // () => this.onSaveError(),
+      response => this.processError(response),
     );
   }
 
@@ -96,12 +99,25 @@ export class ModalEditUserComponent implements OnInit {
     this.bsModalRef.hide()
   }
 
-  private onSaveError(): void {
-    this.isSaving = false;
-  }
+  // private onSaveError(): void {
+  //   this.isSaving = false;
+  // }
 
   onCancel(){
     this.bsModalRef.hide()
+  }
+
+  private processError(response: HttpErrorResponse): void {
+    //  if (response.status === 400 && this.createUserForm.value.login == this.user.login) {
+    //   this.errorUserExists = true;
+    // } else if (response.status === 400 && this.editForm.get(['email'])!.value == this.user.email) {
+    //   this.errorEmailExists = true;
+    // } else {
+      this.error = true;
+      this.isSaving = false;
+      
+    // }
+    
   }
 
 }

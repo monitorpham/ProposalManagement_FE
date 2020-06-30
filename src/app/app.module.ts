@@ -29,6 +29,11 @@ import { AccountComponent } from './account/account.component';
 import { SettingsComponent } from './account/settings/settings.component';
 import { PasswordComponent } from './account/password/password.component';
 import { PasswordStrengthBarComponent } from './account/password/password-strength-bar/password-strength-bar.component';
+import { RegisterComponent } from './account/register/register.component';
+import { ToastrModule } from 'ngx-toastr';
+import { ModalViewProgressComponent } from './home/component/modal-view-progress/modal-view-progress.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,13 +45,15 @@ import { PasswordStrengthBarComponent } from './account/password/password-streng
     ModalUpdateProgressComponent,
     ModalDeleteProposalComponent,
     ModalCompleteProgressComponent,
+    ModalViewProgressComponent,
     // ComponentComponent,
     ModalCreateUserComponent,
     ModalEditUserComponent,
     AccountComponent,
     SettingsComponent,
     PasswordComponent,
-    PasswordStrengthBarComponent
+    PasswordStrengthBarComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,12 +62,14 @@ import { PasswordStrengthBarComponent } from './account/password/password-streng
     DataTablesModule,
     ModalModule.forRoot(),
     MglTimelineModule,
+    ToastrModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     NgbModule,
     FormsModule,
     NgSelectModule,
     HttpClientModule,
     AppRoutingModule, 
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
@@ -71,7 +80,8 @@ import { PasswordStrengthBarComponent } from './account/password/password-streng
     ModalCreateProposalComponent,
     ModalUpdateProgressComponent,
     ModalDeleteProposalComponent,
-    ModalCompleteProgressComponent],
+    ModalCompleteProgressComponent,
+    ModalViewProgressComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

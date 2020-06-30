@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ProposalService } from 'src/app/_services/proposal.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-modal-delete-proposal',
@@ -12,7 +14,9 @@ export class ModalDeleteProposalComponent implements OnInit {
 
   constructor(
     private bsModalRef: BsModalRef,
-    private proposalService: ProposalService
+    private toastr : ToastrService,
+    private proposalService: ProposalService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -22,20 +26,23 @@ export class ModalDeleteProposalComponent implements OnInit {
     
     this.proposalService.deleteProposal(this.proposal.id).subscribe(res =>{
       console.log(res)
+      this.toastr.success("Delete proposal successfully!");
+      this.refresh();
     }, err =>{
       console.log(err)
+      this.toastr.error(err.message? err.message:  "Delete proposal failed!")
     })
     this.bsModalRef.hide()
-    this.refresh()
   }
 
   onCancel(){
     this.bsModalRef.hide()
   }
 
-  refresh(): void {
-    window.location.reload();
+  refresh(){
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['/home']);
   }
-
 
 }

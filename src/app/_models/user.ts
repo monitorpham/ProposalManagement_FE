@@ -31,7 +31,8 @@ export interface IUser {
     lastModifiedBy?: string;
     lastModifiedDate?: Date;
     password?: string;
-    group?:any
+    group?:any;
+    key?:any
   }
   
   export class User implements IUser {
@@ -49,7 +50,8 @@ export interface IUser {
       public lastModifiedBy?: string,
       public lastModifiedDate?: Date,
       public password?: string,
-      public group?: any
+      public group?: any,
+      public key?: any
     ) {}
 
     // public convertDate(dateString: String) {

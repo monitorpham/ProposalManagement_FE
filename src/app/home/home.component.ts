@@ -8,6 +8,8 @@ import { ModalCreateProposalComponent } from './component/modal-create-proposal/
 import { ModalUpdateProgressComponent } from './component/modal-update-progress/modal-update-progress.component';
 import { Subject } from 'rxjs';
 import { ModalDeleteProposalComponent } from './component/modal-delete-proposal/modal-delete-proposal.component';
+import { ModalViewProgressComponent } from './component/modal-view-progress/modal-view-progress.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -26,6 +28,7 @@ export class HomeComponent implements OnInit {
     private modalService: BsModalService,
     private bsModalRef: BsModalRef,
     private proposalService: ProposalService,
+    private router: Router,
   ) {
   }
 
@@ -35,7 +38,9 @@ export class HomeComponent implements OnInit {
       pageLength: 10
     };
     this.loadData()
-    // console.log(this.proposals)
+    console.log(this.proposals)
+
+    
   }
 
   loadData() {
@@ -43,9 +48,10 @@ export class HomeComponent implements OnInit {
       this.proposals = res.map(item => {
         let proposal = new Proposal()
         proposal.id = item.proposal.id
+        proposal.note = item.proposal.note
         proposal.contentProposal = item.proposal.contentProposal
         proposal.startDate = proposal.convertDate(item.proposal.startDate)
-        proposal.endDate = proposal.convertDate(item.proposal.endDate)
+        proposal.endDate = proposal.convertDate(item.proposal.startDate)
         proposal.currentProgressName = item.currentProgressName
         proposal.hospitalDepartment = item.proposal.hospitalDepartment.hospitalDepartmentName
         proposal.registerBy = item.proposal.userExtra.user.firstName
@@ -58,22 +64,41 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  // reloadData(){
+  //   this.proposalService.getAllProposals().subscribe(res => {
+  //     this.proposals = res.map(item => {
+  //       let proposal = new Proposal()
+  //       proposal.id = item.proposal.id
+  //       proposal.note = item.proposal.note
+  //       proposal.contentProposal = item.proposal.contentProposal
+  //       proposal.startDate = proposal.convertDate(item.proposal.startDate)
+  //       proposal.endDate = proposal.convertDate(item.proposal.startDate)
+  //       proposal.currentProgressName = item.currentProgressName
+  //       proposal.hospitalDepartment = item.proposal.hospitalDepartment.hospitalDepartmentName
+  //       proposal.registerBy = item.proposal.userExtra.user.firstName
+  //       proposal.Group = item.proposal.userExtra.equiqmentGroup.nameGroup
+  //       return proposal
+  //     }, err => {
+  //       console.log(err)
+  //     })
+  //   })
+  // }
+
   OpenCreateProposalModal() {
-    // const initialState = {
-    //     title: 'Modal with component'
-    //   };
     this.bsModalRef = this.modalService.show(ModalCreateProposalComponent, { class: "modal-lg" });
+    // this.modalService.onHide.subscribe((reason: string) => {
+    //   this.refresh()
+    // })
   }
 
   OpenUpdateProgressModal(proposal) {
     const initialState = {
       proposal: proposal,
-      
     };
-    // console.log(proposal)
-    // debugger;
     this.bsModalRef = this.modalService.show(ModalUpdateProgressComponent, {initialState, class: "modal-lg"});
-    // this.bsModalRef.content.proposal = proposal;
+    // this.modalService.onHide.subscribe((reason: string) => {
+    //   this.refresh()
+    // })
   }
 
   openDeleteProposalModal(proposal){
@@ -81,8 +106,23 @@ export class HomeComponent implements OnInit {
       proposal: proposal,
     };
     this.bsModalRef = this.modalService.show(ModalDeleteProposalComponent, {initialState})
-    // this.bsModalRef.content.proposal = proposal
+    // this.modalService.onHide.subscribe((reason: string) => {
+    //   this.refresh()
+    // })
   }
 
+
+  OpenViewProgressModal(proposal){
+    const initialState = {
+      proposal: proposal,
+    };
+    this.bsModalRef = this.modalService.show(ModalViewProgressComponent, {initialState, class: "modal-lg"});
+  }
+
+  refresh(){
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['/home']);
+  }
 
 }

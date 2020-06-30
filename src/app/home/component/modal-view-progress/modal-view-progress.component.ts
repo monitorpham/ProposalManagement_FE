@@ -1,26 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { MglTimelineModule } from 'angular-mgl-timeline';
-import { ModalDeleteProposalComponent } from '../modal-delete-proposal/modal-delete-proposal.component';
-import { ModalCompleteProgressComponent } from '../modal-complete-progress/modal-complete-progress.component';
 import { ProposalService } from 'src/app/_services/proposal.service';
 import { Progress } from 'src/app/_models/progress';
 import { Proposal } from 'src/app/_models/proposal';
-import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-modal-update-progress',
-  templateUrl: './modal-update-progress.component.html',
-  styleUrls: ['./modal-update-progress.component.css']
+  selector: 'app-modal-view-progress',
+  templateUrl: './modal-view-progress.component.html',
+  styleUrls: ['./modal-view-progress.component.scss']
 })
-export class ModalUpdateProgressComponent implements OnInit {
+export class ModalViewProgressComponent implements OnInit {
+
   proposal: Proposal
 
   alternate: boolean = true;
   toggle: boolean = true;
   color: boolean = true;
-  size: number = 20;
-  expandEnabled: boolean = true;
+  size: number = 0;
+  expandEnabled: boolean = false;
   contentAnimation: boolean = true;
   dotAnimation: boolean = true;
   side = 'left';
@@ -29,24 +27,23 @@ export class ModalUpdateProgressComponent implements OnInit {
     private bsModalRef: BsModalRef,
     private bsModalRef2: BsModalRef,
     private modalService: BsModalService,
-    private router: Router,
     private proposalService: ProposalService
     ){ }
 
   ngOnInit(): void {
-    // console.log("id:" + this.proposal.id)
     this.proposalService.getProgressesByProposalId(this.proposal.id).subscribe(res => {
-      // console.log("res:" + res)
-      // debugger;
       this.entries = res.map(item =>{
-        // console.log("item: " + item)
-        // debugger;
         let progress = new Progress(item.id, item.progress.contentTask, item.timeStart ,item.timeEnd, item.performBy, item.note)
         return progress
       })
+      for(let i=0; i < this.entries.length; i++){
+        if(!this.entries[i]['timeEnd']){
+          this.entries.slice(i,1)
+        }
+      }
       console.log("entries: ")
     console.log(this.entries)
-    })
+    }, err => err)
   }
 
   onExpandEntry(expanded, index) {
@@ -75,15 +72,6 @@ export class ModalUpdateProgressComponent implements OnInit {
 
   onCancel(){
     this.bsModalRef.hide()
-  }
-
-  openCompleteProgressModal(progress){
-    const initialState = {
-      progress: progress,
-      
-    };
-    this.bsModalRef2 = this.modalService.show(ModalCompleteProgressComponent, {initialState})
-    this.bsModalRef2.content.progress = progress
   }
 
   // isCurrentProgress(i){
